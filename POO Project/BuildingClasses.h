@@ -28,6 +28,7 @@ public:
 
 //Class for creating a column
 class Column {
+public:
 	string name = "";
 	int dimension = 0;
 	int intValue = 0;
@@ -78,6 +79,19 @@ public:
 
 	//Destructor
 	~Column(){}
+
+	string getName() {
+		return this->name;
+	}
+	void setName(string name) {
+		this->name = name;
+	}
+	int getDimension() {
+		return this->dimension;
+	}
+	void setDimension(int dimension) {
+		this->dimension = dimension;
+	}
 
 };
 
