@@ -7,18 +7,40 @@ class Table {
 private:
 	string tableName;
 	int noColumns;
-	int noRows;
+
+	Column* column;
 public:
 
-	Table(string tableName, int noColumns, int noRows) {
-		this->tableName = tableName;
-		this->noColumns = noColumns;
-		this->noRows = noRows;
-}
+	Table() {
+
+	}
+
+	Table(string tableName, int noColumns, int noRows, Column* column) :
+		tableName(tableName), noColumns(noColumns), noRows(noRows)
+	{
+		if (this->column != nullptr)
+		{
+			delete[]this->column;
+			this->column = new Column[this->noColumns];
+		}
+		for (int i = 0; i < this->noColumns; i++)
+		{
+			this->column[i] = column[i];
+		}
+	}
+
+	string getTableName() {
+		return this->getTableName;
+	}
+
+	void setTableName(string Name){
+		this->getTableName = Name;
+	}
+	
 };
 
 class Data {
-	int v1 = o;
+	int v1 = 0;
 	float v2 = 0;
 	string text = "";
 public:
@@ -30,7 +52,7 @@ public:
 class Column {
 public:
 	string name = "";
-	int dimension = 0;
+	int noOfRows = 0;
 	int intValue = 0;
 	float floatValue = 0;
 	string textValue = "";
@@ -38,34 +60,34 @@ public:
 public:
 	//Column(){}
 
-	Column(string Name, int Dimension) {
+	Column(string Name, int noOfRows) {
 		setName(Name);
-		setDimension(Dimension);
+		setNoOfRows(noOfRows);
 	}
 
 	//Default constructor
 	Column() {
 		this->name = "No column name";
 		this->~columnType = type::INTEGER;
-		this->dimension = 0;
+		this->noOfRows = 0;
 	}
 	//Constructor
-	Column(string Name, int Dimension, int Value) :name(Name), dimension(Dimension) {
+	Column(string Name, int noOfRows, int Value) :name(Name), noOfRows(noOfRows) {
 		//this->name = Name;
 		//this->dimension = Dimension;
 	}
 
-	Column(string Name, int Dimension, int Value) :name(Name), dimension(Dimension) {
+	Column(string Name, int noOfRows, int Value) :name(Name), noOfRows(noOfRows) {
 		if (this->getType() == "integer")
 			this->textValue = Value;
 	}
 
-	Column(string Name, int Dimension, float Value) :name(Name), dimension(Dimension) {
+	Column(string Name, int noOfRows, float Value) :name(Name), noOfRows(noOfRows) {
 		if (this->getType() == "float")
 			this->textValue = Value;
 	}
 
-	Column(string Name, int Dimension, string Value) :name(Name), dimension(Dimension) {
+	Column(string Name, int noOfRows, string Value) :name(Name), noOfRows(noOfRows) {
 		if (this->getType() == "text")
 			this->textValue = Value;
 	}
@@ -73,7 +95,7 @@ public:
 	//Copy Constructor
 	Column(const Column& object) {
 		this->name = object.name;
-		this->dimension = object.dimension;
+		this->noOfRows = object.noOfRows;
 		//this->value=object.value;
 	}
 
@@ -86,11 +108,11 @@ public:
 	void setName(string name) {
 		this->name = name;
 	}
-	int getDimension() {
-		return this->dimension;
+	int getNoOfRows() {
+		return this->noOfRows;
 	}
-	void setDimension(int dimension) {
-		this->dimension = dimension;
+	void setNoOfRows(int noOfRows) {
+		this->noOfRows = noOfRows;
 	}
 
 };
@@ -106,3 +128,4 @@ public:
 	}
 
 };
+
