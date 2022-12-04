@@ -1,13 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
-using namespage std;
+using namespace std;
 
 class Table {
-private:
 	string tableName;
 	int noColumns;
-
 	Column* column;
 public:
 
@@ -55,10 +53,9 @@ public:
 	int noOfRows = 0;
 	int intValue = 0;
 	float floatValue = 0;
-	string textValue = "";
+	string* textValue =nullptr;
 
 public:
-	//Column(){}
 
 	Column(string Name, int noOfRows) {
 		setName(Name);
@@ -100,7 +97,11 @@ public:
 	}
 
 	//Destructor
-	~Column(){}
+	~Column()
+	{
+		if (textValue != nullptr)
+			delete[]textValue;
+	}
 
 	string getName() {
 		return this->name;
@@ -118,13 +119,41 @@ public:
 };
 
 class DataBase {
-private:
-	int noOdfTables;
-	string tableName;
+	int noOfTables;
+	string* tableNames;
 public:
-	DataBase() {
+	DataBase() 
+	{
 		int noOfTables = 0;
-		string tableName = "";
+		string* tableNames = "";
+	}
+	void addTables(string* tableNames, int noOfTables)
+	{
+		this->noOfTables = this->noOfTables + noOfTables;
+		string* newTableNames = new string[this->noOfTables];
+		for (int i = 0; i < this->noOfTables - noOfTables; i++)
+		{
+			newTableNames[i] = this->tableNames[i]
+		}
+		for (int j = this->noOfTables - noOfTables; j < this->noOfTables; j++)
+		{
+			newTableNames[i+j] = this->tableNames[j]
+		}
+		this->tableNames + tableNames;
+
+	}
+	void removeTables(string* tableNames)
+	{
+		this->tableNames = this->tableNames + tableNames;
+	}
+
+	string* getTableNames()
+	{
+		return this->tableNames;
+	}
+	int noOfTables() 
+	{
+
 	}
 
 };
