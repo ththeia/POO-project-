@@ -127,24 +127,39 @@ public:
 		int noOfTables = 0;
 		string* tableNames = "";
 	}
-	void addTables(string* tableNames, int noOfTables)
+	void createTable(string tableName)
 	{
-		this->noOfTables = this->noOfTables + noOfTables;
+		this->noOfTables = this->noOfTables + 1;
 		string* newTableNames = new string[this->noOfTables];
-		for (int i = 0; i < this->noOfTables - noOfTables; i++)
+		for (int i = 0; i < this->noOfTables - 1; i++)
 		{
-			newTableNames[i] = this->tableNames[i]
+			newTableNames[i] = this->tableNames[i];
 		}
-		for (int j = this->noOfTables - noOfTables; j < this->noOfTables; j++)
+		for (int j = this->noOfTables - 1; j < this->noOfTables; j++)
 		{
-			newTableNames[i+j] = this->tableNames[j]
+			newTableNames[j] = tableName[j - this->noOfTables - 1];
 		}
-		this->tableNames + tableNames;
+		this->tableNames = new string[this->noOfTables];
+		for (int i = 0; i < this->noOfTables; i++)
+		{
+			this->tableNames[i] = newTableNames[i];
+		}
+		delete[] newTableNames;
 
 	}
-	void removeTables(string* tableNames)
+	void dropTable(string tableName)
 	{
-		this->tableNames = this->tableNames + tableNames;
+		for (int i = 0; i < this->noOfTables; i++)
+		{
+			if (this->tableNames[i] == tableName)
+			{
+				for (int j = i; j < this->noOfTables - 1; j++)
+				{
+					this->tableNames[j] = this->tableNames[j + 1];
+				}
+			}
+			this->noOfTables--;
+		}
 	}
 
 	string* getTableNames()
@@ -153,7 +168,7 @@ public:
 	}
 	int noOfTables() 
 	{
-
+		return this->noOfTables;
 	}
 
 };
